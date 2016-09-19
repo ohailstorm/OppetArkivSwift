@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		55611D0D1D8EB39A00525148 /* SVTParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55611D0C1D8EB39A00525148 /* SVTParser.swift */; };
 		556A552C1D8FFFD2007921F9 /* ProgramListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556A552B1D8FFFD2007921F9 /* ProgramListTableViewController.swift */; };
-		5593659C1D8F1BF90054C83D /* ProgramListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5593659A1D8F1BF90054C83D /* ProgramListCell.swift */; };
-		5593659D1D8F1BF90054C83D /* ProgramListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5593659B1D8F1BF90054C83D /* ProgramListCell.xib */; };
 		55DCA9101D9003C300BBECA6 /* EpisodeListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCA90F1D9003C300BBECA6 /* EpisodeListTableViewController.swift */; };
 		55F4C2171D8DA55B00E23CFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F4C2161D8DA55B00E23CFB /* AppDelegate.swift */; };
 		55F4C2191D8DA55B00E23CFB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F4C2181D8DA55B00E23CFB /* ViewController.swift */; };
@@ -23,8 +21,6 @@
 		386A623F89669AD5EE818EFC /* Pods_OppetArkivSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OppetArkivSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55611D0C1D8EB39A00525148 /* SVTParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SVTParser.swift; path = Model/SVTParser.swift; sourceTree = "<group>"; };
 		556A552B1D8FFFD2007921F9 /* ProgramListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProgramListTableViewController.swift; path = Controller/ProgramListTableViewController.swift; sourceTree = "<group>"; };
-		5593659A1D8F1BF90054C83D /* ProgramListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProgramListCell.swift; path = View/ProgramListCell.swift; sourceTree = "<group>"; };
-		5593659B1D8F1BF90054C83D /* ProgramListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProgramListCell.xib; path = View/ProgramListCell.xib; sourceTree = "<group>"; };
 		55DCA90F1D9003C300BBECA6 /* EpisodeListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EpisodeListTableViewController.swift; path = Controller/EpisodeListTableViewController.swift; sourceTree = "<group>"; };
 		55F4C2131D8DA55B00E23CFB /* OppetArkivSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OppetArkivSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55F4C2161D8DA55B00E23CFB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -66,15 +62,6 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
-		5593659E1D8F1C000054C83D /* View */ = {
-			isa = PBXGroup;
-			children = (
-				5593659A1D8F1BF90054C83D /* ProgramListCell.swift */,
-				5593659B1D8F1BF90054C83D /* ProgramListCell.xib */,
-			);
-			name = View;
-			sourceTree = "<group>";
-		};
 		55F4C20A1D8DA55B00E23CFB = {
 			isa = PBXGroup;
 			children = (
@@ -100,7 +87,6 @@
 				55611D0E1D8EB39D00525148 /* Model */,
 				55F4C2161D8DA55B00E23CFB /* AppDelegate.swift */,
 				55F4C21A1D8DA55B00E23CFB /* Main.storyboard */,
-				5593659E1D8F1C000054C83D /* View */,
 				55F4C21D1D8DA55B00E23CFB /* Assets.xcassets */,
 				55F4C21F1D8DA55B00E23CFB /* Info.plist */,
 			);
@@ -186,7 +172,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				55F4C21E1D8DA55B00E23CFB /* Assets.xcassets in Resources */,
-				5593659D1D8F1BF90054C83D /* ProgramListCell.xib in Resources */,
 				55F4C21C1D8DA55B00E23CFB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -246,7 +231,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5593659C1D8F1BF90054C83D /* ProgramListCell.swift in Sources */,
 				55DCA9101D9003C300BBECA6 /* EpisodeListTableViewController.swift in Sources */,
 				556A552C1D8FFFD2007921F9 /* ProgramListTableViewController.swift in Sources */,
 				55F4C2191D8DA55B00E23CFB /* ViewController.swift in Sources */,
