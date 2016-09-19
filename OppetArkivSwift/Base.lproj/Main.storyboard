@@ -51,13 +51,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="1285" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EpisodeListCell" id="OPX-ea-MoI">
-                                <rect key="frame" x="0.0" y="54" width="1285" height="66"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EpisodeListCell" textLabel="QPQ-Ic-Ee9" style="IBUITableViewCellStyleDefault" id="OPX-ea-MoI">
+                                <rect key="frame" x="0.0" y="54" width="1245" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OPX-ea-MoI" id="o1r-03-Y2D">
                                     <rect key="frame" x="0.0" y="0.0" width="1269" height="66"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QPQ-Ic-Ee9">
+                                            <rect key="frame" x="20" y="0.0" width="1229" height="66"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="38"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="w2j-xu-NUg" kind="show" id="mMN-aE-9fZ"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -69,6 +81,23 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GX2-nI-Sf6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2024" y="-1260"/>
+        </scene>
+        <!--Episode Details View Controller-->
+        <scene sceneID="YMn-pW-E6f">
+            <objects>
+                <viewController id="w2j-xu-NUg" customClass="EpisodeDetailsViewController" customModule="OppetArkivSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SnW-w0-CVp"/>
+                        <viewControllerLayoutGuide type="bottom" id="C3H-sz-0u4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iBr-cl-XxJ">
+                        <rect key="frame" x="0.0" y="0.0" width="1285" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="20E-Vf-epL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2616" y="261"/>
         </scene>
     </scenes>
 </document>

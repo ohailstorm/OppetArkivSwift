@@ -13,6 +13,7 @@ import HTMLReader
 class EpisodeListTableViewController: UITableViewController {
     
     var requestUrl = ""
+    let baseUrl = "http://www.oppetarkiv.se"
     var episodeList : [HTMLElement] = []
     
     override func viewDidLoad() {
@@ -90,15 +91,31 @@ class EpisodeListTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        print("preparing")
+        if let cell = sender as? UITableViewCell {
+            if let index = self.tableView.indexPathForCell(cell) {
+                print(episodeList[index.row].attributes)
+                if let href = episodeList[index.row].attributes["href"] {
+                    let videoId = href.componentsSeparatedByString("/")[2]
+                    print(videoId)
+                    if let newController = segue.destinationViewController as? EpisodeDetailsViewController {
+                        newController.videoId = videoId
+                        newController.detailsUrl = baseUrl + href
+                        print(newController.detailsUrl)
+                    }
+                }
+            }
+            
+        }
     }
-    */
+ 
     
     func updateProgramsList(newList : [HTMLElement]) {
         self.episodeList = newList
