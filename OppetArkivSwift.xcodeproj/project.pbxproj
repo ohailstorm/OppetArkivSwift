@@ -11,6 +11,7 @@
 		556A552C1D8FFFD2007921F9 /* ProgramListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556A552B1D8FFFD2007921F9 /* ProgramListTableViewController.swift */; };
 		5593659C1D8F1BF90054C83D /* ProgramListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5593659A1D8F1BF90054C83D /* ProgramListCell.swift */; };
 		5593659D1D8F1BF90054C83D /* ProgramListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5593659B1D8F1BF90054C83D /* ProgramListCell.xib */; };
+		55DCA9101D9003C300BBECA6 /* EpisodeListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCA90F1D9003C300BBECA6 /* EpisodeListTableViewController.swift */; };
 		55F4C2171D8DA55B00E23CFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F4C2161D8DA55B00E23CFB /* AppDelegate.swift */; };
 		55F4C2191D8DA55B00E23CFB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F4C2181D8DA55B00E23CFB /* ViewController.swift */; };
 		55F4C21C1D8DA55B00E23CFB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55F4C21A1D8DA55B00E23CFB /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 		556A552B1D8FFFD2007921F9 /* ProgramListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProgramListTableViewController.swift; path = Controller/ProgramListTableViewController.swift; sourceTree = "<group>"; };
 		5593659A1D8F1BF90054C83D /* ProgramListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProgramListCell.swift; path = View/ProgramListCell.swift; sourceTree = "<group>"; };
 		5593659B1D8F1BF90054C83D /* ProgramListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProgramListCell.xib; path = View/ProgramListCell.xib; sourceTree = "<group>"; };
+		55DCA90F1D9003C300BBECA6 /* EpisodeListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EpisodeListTableViewController.swift; path = Controller/EpisodeListTableViewController.swift; sourceTree = "<group>"; };
 		55F4C2131D8DA55B00E23CFB /* OppetArkivSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OppetArkivSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55F4C2161D8DA55B00E23CFB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55F4C2181D8DA55B00E23CFB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				55F4C2181D8DA55B00E23CFB /* ViewController.swift */,
+				55DCA90F1D9003C300BBECA6 /* EpisodeListTableViewController.swift */,
 				556A552B1D8FFFD2007921F9 /* ProgramListTableViewController.swift */,
 			);
 			name = Controller;
@@ -244,6 +247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5593659C1D8F1BF90054C83D /* ProgramListCell.swift in Sources */,
+				55DCA9101D9003C300BBECA6 /* EpisodeListTableViewController.swift in Sources */,
 				556A552C1D8FFFD2007921F9 /* ProgramListTableViewController.swift in Sources */,
 				55F4C2191D8DA55B00E23CFB /* ViewController.swift in Sources */,
 				55F4C2171D8DA55B00E23CFB /* AppDelegate.swift in Sources */,

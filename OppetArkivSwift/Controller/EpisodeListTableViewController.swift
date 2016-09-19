@@ -1,5 +1,5 @@
 //
-//  ProgramListTableViewController.swift
+//  EpisodeListTableViewController.swift
 //  OppetArkivSwift
 //
 //  Created by Oscar Hallström on 2016-09-19.
@@ -10,9 +10,10 @@ import UIKit
 import Alamofire
 import HTMLReader
 
-class ProgramListTableViewController: UITableViewController {
-    var programsList : [HTMLElement] = []
-    let baseUrl = "http://www.oppetarkiv.se"
+class EpisodeListTableViewController: UITableViewController {
+    
+    var requestUrl = ""
+    var episodeList : [HTMLElement] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +23,7 @@ class ProgramListTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        buildAllProgramsList("http://www.oppetarkiv.se/program")
+        buildOneProgramsList()
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,16 +40,17 @@ class ProgramListTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return programsList.count
+        return episodeList.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ProgramListCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("EpisodeListCell", forIndexPath: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = programsList[indexPath.row].textContent
-        
+        cell.textLabel?.text = episodeList[indexPath.row].textContent
+
+
         return cell
     }
  
@@ -88,43 +90,30 @@ class ProgramListTableViewController: UITableViewController {
     }
     */
 
-    
+    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        
-        if let cell = sender as? UITableViewCell {
-            if let index = self.tableView.indexPathForCell(cell) {
-                if let href = programsList[index.row].attributes["href"] {
-                    if let newController = segue.destinationViewController as? EpisodeListTableViewController {
-                        newController.requestUrl = baseUrl + href
-                        print(newController.requestUrl)
-                    }
-                }
-            }
-            
-        }
     }
- 
-
+    */
+    
     func updateProgramsList(newList : [HTMLElement]) {
-        self.programsList = newList
+        self.episodeList = newList
         for element in newList {
             //            print(element)
         }
         self.tableView.reloadData()
         
     }
-    
-    func buildAllProgramsList(url: String){
-        
+    func buildOneProgramsList(){
+
         
         //       "http://www.oppetarkiv.se/program"
         
-        Alamofire.request(.GET, url)
+        Alamofire.request(.GET, requestUrl)
             .responseString { responseString in
                 guard responseString.result.error == nil else {
                     // completionHandler(responseString.result.error!)
@@ -141,7 +130,7 @@ class ProgramListTableViewController: UITableViewController {
                 let doc = HTMLDocument(string: htmlAsString)
                 
                 //                // find the table of charts in the HTML
-                let tables = doc.nodesMatchingSelector(".svtoa-anchor-list-link")
+                let tables = doc.nodesMatchingSelector(".svtJsLoadHref")
                 
                 var chartsTable:HTMLElement?
                 for table in tables {
@@ -150,11 +139,12 @@ class ProgramListTableViewController: UITableViewController {
                     //                            chartsTable = tableElement
                     //                            break
                     //                        }
-                    //print(table.textContent)
+                    print(table.textContent)
                 }
                 self.updateProgramsList(tables)
                 
         }
         
     }
+
 }

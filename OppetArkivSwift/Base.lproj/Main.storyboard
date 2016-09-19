@@ -13,7 +13,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProgramListCell" textLabel="fmA-3V-ogB" style="IBUITableViewCellStyleDefault" id="CUV-zN-xVl">
-                                <rect key="frame" x="0.0" y="54" width="1920" height="66"/>
+                                <rect key="frame" x="0.0" y="54" width="1880" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CUV-zN-xVl" id="g23-6M-0XC">
                                     <rect key="frame" x="0.0" y="0.0" width="1904" height="66"/>
@@ -23,11 +23,14 @@
                                             <rect key="frame" x="20" y="0.0" width="1864" height="66"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="38"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="h8f-rC-ggc" kind="showDetail" id="TGK-a2-0RX"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -39,6 +42,33 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkp-O0-B0O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-680" y="-1139"/>
+        </scene>
+        <!--Episode List Table View Controller-->
+        <scene sceneID="Okd-U6-FeR">
+            <objects>
+                <tableViewController id="h8f-rC-ggc" customClass="EpisodeListTableViewController" customModule="OppetArkivSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="66" sectionHeaderHeight="40" sectionFooterHeight="40" id="Mdz-ZE-t3i">
+                        <rect key="frame" x="0.0" y="0.0" width="1285" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EpisodeListCell" id="OPX-ea-MoI">
+                                <rect key="frame" x="0.0" y="54" width="1285" height="66"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OPX-ea-MoI" id="o1r-03-Y2D">
+                                    <rect key="frame" x="0.0" y="0.0" width="1269" height="66"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="h8f-rC-ggc" id="ziQ-9E-6oa"/>
+                            <outlet property="delegate" destination="h8f-rC-ggc" id="fnD-wn-ivS"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GX2-nI-Sf6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2024" y="-1260"/>
         </scene>
     </scenes>
 </document>
