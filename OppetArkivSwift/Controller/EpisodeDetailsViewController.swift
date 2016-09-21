@@ -9,10 +9,15 @@
 import UIKit
 import Alamofire
 import HTMLReader
+import AVKit
+import SwiftyJSON
+
 
 class EpisodeDetailsViewController: UIViewController {
     var detailsUrl = ""
     var videoId = ""
+    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,25 +103,47 @@ class EpisodeDetailsViewController: UIViewController {
                     
                     return
                 }
-                print(responseString)
-                //                print(htmlAsString)
-                let doc = HTMLDocument(string: htmlAsString)
-                
-                //                // find the table of charts in the HTML
-                let tables = doc.nodesMatchingSelector(".svtoa-anchor-list-link")
-                
-                var chartsTable:HTMLElement?
-                for table in tables {
-                    //                    if let tableElement = table as? HTMLElement {
-                    //                        if self.isChartsTable(tableElement) {
-                    //                            chartsTable = tableElement
-                    //                            break
-                    //                        }
-                    //print(table.textContent)
+//                print(responseString)
+                if let dataFromString = htmlAsString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
+                    let json = JSON(data: dataFromString)
+//                    print(json["videoReferences"])
+                    for item in json["videoReferences"].arrayValue {
+                        if item["format"].stringValue == "hls" {
+                            print(item["url"].stringValue)
+                            self.playVideo(item["url"].stringValue)
+                            break
+                        }
+                       
+                    }
                 }
-               
-                
         }
+        
+    }
+    
+    func playVideo(url: String) {
+        var videoURL: NSURL = NSURL(string: url)!
+        
+         let playerViewController = AVPlayerViewController()
+        
+//        playerViewController.player = AVPlayer.init(URL: videoURL)
+        playerViewController.player = AVPlayer(URL: videoURL)
+        
+        //        moviePlayerController.movieSourceType = MPMovieSourceType.File
+        
+        playerViewController.modalInPopover = true
+        
+        
+        self.addChildViewController(playerViewController)
+        playerViewController.view.frame = self.view.frame
+        self.view.addSubview(playerViewController.view)
+        
+        playerViewController.player?.play()
+//        playerViewController.loadView()
+        playerViewController.showsPlaybackControls = true
+        playerViewController.didMoveToParentViewController(self)
+        
+       
+        
         
     }
 

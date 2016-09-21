@@ -7,12 +7,19 @@
 //
 
 import UIKit
+import Foundation
 import Alamofire
 import HTMLReader
 
 class ProgramListTableViewController: UITableViewController {
     var programsList : [HTMLElement] = []
+    var sectionedProgramsList : Dictionary<String, Array<String>> = [:]
     let baseUrl = "http://www.oppetarkiv.se"
+    
+    
+    
+    var sections : [(index: Int, length :Int, title: String)] = Array()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,11 +119,39 @@ class ProgramListTableViewController: UITableViewController {
 
     func updateProgramsList(newList : [HTMLElement]) {
         self.programsList = newList
+        var nameArray : [String] = []
         for element in newList {
             //            print(element)
+            nameArray.append(element.textContent)
         }
         self.tableView.reloadData()
         
+        var index = 0;
+        var array = nameArray
+        for ( var i = 0; i < array.count; i++ ) {
+            
+            let commonPrefix = array[i].commonPrefixWithString(array[index], options: .CaseInsensitiveSearch)
+            
+            if (commonPrefix.characters.count == 0 ) {
+                
+                let string = array[index].uppercaseString;
+                
+                let firstCharacter = string[string.startIndex]
+                
+                let title = "\(firstCharacter)"
+                
+                let newSection = (index: index, length: i - index, title: title)
+                
+                sections.append(newSection)
+                
+                index = i;
+                
+            }
+            
+        }
+        
+        print(sections)
+
     }
     
     func buildAllProgramsList(url: String){

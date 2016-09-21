@@ -15,6 +15,7 @@ class EpisodeListTableViewController: UITableViewController {
     var requestUrl = ""
     let baseUrl = "http://www.oppetarkiv.se"
     var episodeList : [HTMLElement] = []
+    var imageList : [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,12 +51,26 @@ class EpisodeListTableViewController: UITableViewController {
 
         // Configure the cell...
         cell.textLabel?.text = episodeList[indexPath.row].textContent
+        //print(episodeList[indexPath.row].attributes)
+        
+        let url = NSURL(string: "http:" + self.imageList[indexPath.row])
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
+            dispatch_async(dispatch_get_main_queue(), { [unowned self] in
+                cell.imageView?.image = UIImage(data: data!)
+                cell.layoutSubviews()
+            });
+        }
 
 
         return cell
     }
  
-
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 200
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -101,10 +116,10 @@ class EpisodeListTableViewController: UITableViewController {
         print("preparing")
         if let cell = sender as? UITableViewCell {
             if let index = self.tableView.indexPathForCell(cell) {
-                print(episodeList[index.row].attributes)
+//                print(episodeList[index.row].attributes)
                 if let href = episodeList[index.row].attributes["href"] {
                     let videoId = href.componentsSeparatedByString("/")[2]
-                    print(videoId)
+//                    print(videoId)
                     if let newController = segue.destinationViewController as? EpisodeDetailsViewController {
                         newController.videoId = videoId
                         newController.detailsUrl = baseUrl + href
@@ -118,7 +133,7 @@ class EpisodeListTableViewController: UITableViewController {
  
     
     func updateProgramsList(newList : [HTMLElement]) {
-        self.episodeList = newList
+        self.episodeList.appendContentsOf(newList)
         for element in newList {
             //            print(element)
         }
@@ -157,9 +172,29 @@ class EpisodeListTableViewController: UITableViewController {
                     //                            chartsTable = tableElement
                     //                            break
                     //                        }
-                    print(table.textContent)
+//                    print(table.textContent)
+                }
+                
+                let images = doc.nodesMatchingSelector(".svtHide-No-Js")
+                
+                for image in images {
+                    if let src = image.attributes["srcset"]?.componentsSeparatedByString(" ").first {
+//                        print(src)
+                        self.imageList.append(src)
+                    }
                 }
                 self.updateProgramsList(tables)
+                
+                //check if there is more content to load
+                if let moreTitlesAvailable = doc.nodesMatchingSelector(".svtoa-js-search-step-button").first {
+//                    print(moreTitlesAvailable.attributes)
+                    if let suffix = moreTitlesAvailable.attributes["href"], let test = moreTitlesAvailable.attributes["data-page-dir"]  where test != "-1" {
+                        self.requestUrl =  self.baseUrl + suffix
+                        self.buildOneProgramsList()
+                    }
+                    
+                }
+                
                 
         }
         
