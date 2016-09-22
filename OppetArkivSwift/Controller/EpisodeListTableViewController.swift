@@ -186,9 +186,9 @@ class EpisodeListTableViewController: UITableViewController {
                 self.updateProgramsList(tables)
                 
                 //check if there is more content to load
-                if let moreTitlesAvailable = doc.nodesMatchingSelector(".svtoa-js-search-step-button").first {
-//                    print(moreTitlesAvailable.attributes)
-                    if let suffix = moreTitlesAvailable.attributes["href"], let test = moreTitlesAvailable.attributes["data-page-dir"]  where test != "-1" {
+                if let moreTitlesAvailable = doc.nodesMatchingSelector(".svtoa-js-search-step-button").filter({ $0.attributes["data-page-dir"] != "-1"}).first {
+                    print(moreTitlesAvailable.attributes)
+                    if let suffix = moreTitlesAvailable.attributes["href"]{
                         self.requestUrl =  self.baseUrl + suffix
                         self.buildOneProgramsList()
                     }
