@@ -11,24 +11,33 @@ import Foundation
 import Alamofire
 import HTMLReader
 
-class ProgramListTableViewController: UITableViewController {
+
+
+class ProgramListTableViewController: UITableViewController, UISearchResultsUpdating, LetterSelectionDelegate {
     var programsList : [HTMLElement] = []
     var sectionedProgramsList : Dictionary<String, Array<String>> = [:]
     let baseUrl = "http://www.oppetarkiv.se"
+    var filteredProgramsList : [HTMLElement] = [] {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
+    var searchText = ""
     
-    
-    
-    var sections : [(index: Int, length :Int, title: String)] = Array()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+//        self.tableView.tableHeaderView = searchController.searchBar
+        
         buildAllProgramsList("http://www.oppetarkiv.se/program")
     }
 
@@ -46,7 +55,7 @@ class ProgramListTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return programsList.count
+        return filteredProgramsList.count
     }
 
     
@@ -54,7 +63,7 @@ class ProgramListTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("ProgramListCell", forIndexPath: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = programsList[indexPath.row].textContent
+        cell.textLabel?.text = filteredProgramsList[indexPath.row].textContent
         
         return cell
     }
@@ -115,6 +124,20 @@ class ProgramListTableViewController: UITableViewController {
             
         }
     }
+    
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        filteredProgramsList = programsList.filter({
+            if let programLetter = $0.textContent.lowercaseString.characters.first, let searchText = searchController.searchBar.text?.lowercaseString.characters.first where searchController.searchBar.text != ""{
+                print(programLetter)
+                print(searchText)
+                return programLetter == searchText
+            }
+            return false
+        })
+//        print(filteredProgramsList)
+//        print(searchController.searchBar.text)
+//        self.tableView.reloadData()
+    }
  
 
     func updateProgramsList(newList : [HTMLElement]) {
@@ -124,34 +147,9 @@ class ProgramListTableViewController: UITableViewController {
             //            print(element)
             nameArray.append(element.textContent)
         }
-        self.tableView.reloadData()
-        
-        var index = 0;
-        var array = nameArray
-        for ( var i = 0; i < array.count; i++ ) {
-            
-            let commonPrefix = array[i].commonPrefixWithString(array[index], options: .CaseInsensitiveSearch)
-            
-            if (commonPrefix.characters.count == 0 ) {
-                
-                let string = array[index].uppercaseString;
-                
-                let firstCharacter = string[string.startIndex]
-                
-                let title = "\(firstCharacter)"
-                
-                let newSection = (index: index, length: i - index, title: title)
-                
-                sections.append(newSection)
-                
-                index = i;
-                
-            }
-            
-        }
-        
-        print(sections)
-
+        self.filteredProgramsList = newList
+    
+//        self.tableView.reloadData()
     }
     
     func buildAllProgramsList(url: String){
@@ -191,5 +189,37 @@ class ProgramListTableViewController: UITableViewController {
                 
         }
         
+    }
+    
+    func letterSelected(filterLetter: Character?) {
+        guard filterLetter != nil else {
+            filteredProgramsList = programsList
+//            self.tableView.reloadData()
+            return
+        }
+        print(filterLetter)
+        guard filterLetter != "#".characters.first else {
+            
+            filteredProgramsList = programsList.filter({
+                if let substr = $0.textContent.characters.first {
+                    return Int(String(substr)) != nil
+                }
+                return false
+            })
+                
+            return
+        }
+        
+        
+        filteredProgramsList = programsList.filter({
+            if let programLetter = $0.textContent.lowercaseString.characters.first {
+                return programLetter == filterLetter
+            }
+            return false
+        })
+        //        print(filteredProgramsList)
+        //        print(searchController.searchBar.text)
+        
+//        self.tableView.reloadData()
     }
 }

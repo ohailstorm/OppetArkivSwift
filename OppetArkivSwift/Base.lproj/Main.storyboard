@@ -1,9 +1,96 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" initialViewController="5sE-f9-y7L">
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" initialViewController="EOG-1W-lFg">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
+        <!--Program List Table View Controller-->
+        <scene sceneID="q4p-Qo-DzZ">
+            <objects>
+                <viewController id="WMv-96-GD0" customClass="ProgramListTableViewController" customModule="OppetArkivSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="66" sectionHeaderHeight="40" sectionFooterHeight="40" id="ClX-91-i4Y">
+                        <rect key="frame" x="0.0" y="0.0" width="1285" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProgramListCell" id="kE3-EO-JX4">
+                                <rect key="frame" x="0.0" y="54" width="1285" height="66"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kE3-EO-JX4" id="KVo-TS-dHJ">
+                                    <rect key="frame" x="0.0" y="0.0" width="1269" height="66"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VOu-pM-Vrg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+        <!--Filter-->
+        <scene sceneID="UvW-kF-ADP">
+            <objects>
+                <tableViewController clearsSelectionOnViewWillAppear="NO" id="CWa-nl-XOG" customClass="LetterSectionTableViewController" customModule="OppetArkivSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="66" sectionHeaderHeight="40" sectionFooterHeight="40" id="hoR-YW-wTq">
+                        <rect key="frame" x="0.0" y="0.0" width="634" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LetterCell" textLabel="za9-Ze-gq0" style="IBUITableViewCellStyleDefault" id="qz6-xS-p8S">
+                                <rect key="frame" x="0.0" y="199" width="634" height="66"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qz6-xS-p8S" id="Emd-t0-oNE">
+                                    <rect key="frame" x="0.0" y="0.0" width="618" height="66"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="za9-Ze-gq0">
+                                            <rect key="frame" x="20" y="0.0" width="578" height="66"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="38"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="CWa-nl-XOG" id="16p-vb-2mH"/>
+                            <outlet property="delegate" destination="CWa-nl-XOG" id="pB2-W7-ACK"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Filter" id="LBs-yt-emA"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ugr-3K-9ce" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="jKI-fy-zCm">
+            <objects>
+                <navigationController id="TuD-VK-FXb" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CMg-uO-1ZZ">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="145"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="CWa-nl-XOG" kind="relationship" relationship="rootViewController" id="VST-BW-Frj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2lG-nv-vZH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+        <!--Split View Controller-->
+        <scene sceneID="nek-C5-zTn">
+            <objects>
+                <splitViewController id="EOG-1W-lFg" sceneMemberID="viewController">
+                    <connections>
+                        <segue destination="TuD-VK-FXb" kind="relationship" relationship="masterViewController" id="zcq-qb-LTe"/>
+                        <segue destination="WMv-96-GD0" kind="relationship" relationship="detailViewController" id="XLn-x8-N3e"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UjL-ak-mzu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
         <!--Program List Table View Controller-->
         <scene sceneID="KMQ-y9-i2j">
             <objects>
@@ -13,7 +100,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProgramListCell" textLabel="fmA-3V-ogB" style="IBUITableViewCellStyleDefault" id="CUV-zN-xVl">
-                                <rect key="frame" x="0.0" y="54" width="1880" height="66"/>
+                                <rect key="frame" x="0.0" y="54" width="1920" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CUV-zN-xVl" id="g23-6M-0XC">
                                     <rect key="frame" x="0.0" y="0.0" width="1904" height="66"/>
@@ -40,8 +127,13 @@
                     </tableView>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkp-O0-B0O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="MTo-zW-pe1">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
             </objects>
-            <point key="canvasLocation" x="-680" y="-1139"/>
+            <point key="canvasLocation" x="-808" y="-1699"/>
         </scene>
         <!--Episode List Table View Controller-->
         <scene sceneID="Okd-U6-FeR">
@@ -98,6 +190,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="20E-Vf-epL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2616" y="261"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Lo6-2U-A0J">
+            <objects>
+                <viewController id="WtJ-nV-kEh" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ou1-PT-npZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="bnv-cK-gr0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="p7g-1d-3jh">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9e6-3x-XLx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
 </document>
