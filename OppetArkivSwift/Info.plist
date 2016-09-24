@@ -5,7 +5,12 @@
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
-		<dict/>
+		<dict>
+			<key>www.oppetarkiv.se</key>
+			<string></string>
+			<key>api.svt.se</key>
+			<string></string>
+		</dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>

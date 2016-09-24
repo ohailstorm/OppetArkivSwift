@@ -13,14 +13,15 @@ import HTMLReader
 private let reuseIdentifier = "EpisodeCell"
 
 class EpisodeListCollectionViewController: UICollectionViewController {
-    var requestUrl = ""
-    let baseUrl = "http://www.oppetarkiv.se"
+    var requestUrl : String = ""
+    var baseUrl : String  = "http://www.oppetarkiv.se"
     var episodeList : [HTMLElement] = [] {
         didSet {
             self.collectionView?.reloadData()
         }
     }
     var imageList : [String] = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +38,7 @@ class EpisodeListCollectionViewController: UICollectionViewController {
         // Do any additional setup after loading the view.
         self.collectionView?.dataSource = self
         
-        buildOneProgramsList()
+        self.buildOneProgramsList()
     }
 
     override func didReceiveMemoryWarning() {
@@ -102,6 +103,7 @@ class EpisodeListCollectionViewController: UICollectionViewController {
 //                cell.imageView?.layer.masksToBounds = true
 
                 cell.imageView?.clipsToBounds = true
+                cell.imageView.sizeToFit()
                 cell.layoutSubviews()
 //                print(cell.canBecomeFocused())
                 });
@@ -175,15 +177,7 @@ class EpisodeListCollectionViewController: UICollectionViewController {
                 //                // find the table of charts in the HTML
                 let tables = doc.nodesMatchingSelector(".svtJsLoadHref")
                 
-                var chartsTable:HTMLElement?
-                for table in tables {
-                    //                    if let tableElement = table as? HTMLElement {
-                    //                        if self.isChartsTable(tableElement) {
-                    //                            chartsTable = tableElement
-                    //                            break
-                    //                        }
-                    //                    print(table.textContent)
-                }
+
                 
                 let images = doc.nodesMatchingSelector(".svtHide-No-Js")
                 

@@ -120,25 +120,32 @@ class ProgramListTableViewController: UITableViewController, LetterSelectionDele
                         print(newController.requestUrl)
                     }
                 }
+                // If CollectionViewCell used
+                if let href = filteredProgramsList[index.row].attributes["href"] {
+                    if let newController = segue.destinationViewController as? EpisodeListCollectionViewController {
+                        newController.requestUrl = baseUrl + href
+                        print(newController.requestUrl)
+                    }
+                }
             }
             
         }
     }
     
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-        filteredProgramsList = programsList.filter({
-            if let programLetter = $0.textContent.lowercaseString.characters.first, let searchText = searchController.searchBar.text?.lowercaseString.characters.first where searchController.searchBar.text != ""{
-                print(programLetter)
-                print(searchText)
-                return programLetter == searchText
-            }
-            return false
-        })
-//        print(filteredProgramsList)
-//        print(searchController.searchBar.text)
-//        self.tableView.reloadData()
-    }
- 
+//    func updateSearchResultsForSearchController(searchController: UISearchController) {
+//        filteredProgramsList = programsList.filter({
+//            if let programLetter = $0.textContent.lowercaseString.characters.first, let searchText = searchController.searchBar.text?.lowercaseString.characters.first where searchController.searchBar.text != ""{
+//                print(programLetter)
+//                print(searchText)
+//                return programLetter == searchText
+//            }
+//            return false
+//        })
+////        print(filteredProgramsList)
+////        print(searchController.searchBar.text)
+////        self.tableView.reloadData()
+//    }
+// 
 
     func updateProgramsList(newList : [HTMLElement]) {
         self.programsList = newList

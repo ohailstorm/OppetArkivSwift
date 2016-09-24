@@ -22,7 +22,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="h8f-rC-ggc" kind="presentation" id="vlc-ex-woa"/>
+                                    <segue destination="2KC-0A-JNz" kind="presentation" id="rV1-TD-TcB"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -161,10 +161,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="bdM-h2-LpD">
-                                            <rect key="frame" x="32" y="28" width="320" height="180"/>
+                                            <rect key="frame" x="32" y="28" width="320" height="190"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XyK-g5-fq9">
-                                            <rect key="frame" x="23" y="218" width="329" height="74"/>
+                                            <rect key="frame" x="23" y="253" width="329" height="39"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -177,8 +177,8 @@
                                     <constraint firstItem="XyK-g5-fq9" firstAttribute="bottom" secondItem="IKg-z0-xVU" secondAttribute="bottomMargin" id="39l-I2-b4t"/>
                                     <constraint firstItem="bdM-h2-LpD" firstAttribute="leading" secondItem="IKg-z0-xVU" secondAttribute="leadingMargin" constant="24" id="Ese-V5-bfP"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="bdM-h2-LpD" secondAttribute="trailing" constant="20" id="Q7g-9D-6q6"/>
-                                    <constraint firstItem="XyK-g5-fq9" firstAttribute="top" secondItem="bdM-h2-LpD" secondAttribute="bottom" constant="10" id="UhJ-tm-6ez"/>
-                                    <constraint firstAttribute="bottomMargin" secondItem="bdM-h2-LpD" secondAttribute="bottom" constant="84" id="X5N-JL-aq8"/>
+                                    <constraint firstItem="XyK-g5-fq9" firstAttribute="top" relation="greaterThanOrEqual" secondItem="bdM-h2-LpD" secondAttribute="bottom" id="UhJ-tm-6ez"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="bdM-h2-LpD" secondAttribute="bottom" constant="74" id="X5N-JL-aq8"/>
                                     <constraint firstItem="XyK-g5-fq9" firstAttribute="leading" secondItem="IKg-z0-xVU" secondAttribute="leadingMargin" constant="15" id="dgZ-ik-6Qs"/>
                                     <constraint firstItem="bdM-h2-LpD" firstAttribute="centerX" secondItem="IKg-z0-xVU" secondAttribute="centerX" constant="2" id="j3s-fe-LSD"/>
                                     <constraint firstItem="XyK-g5-fq9" firstAttribute="trailing" secondItem="bdM-h2-LpD" secondAttribute="trailing" id="jbj-WK-sCF"/>
@@ -205,18 +205,18 @@
             <objects>
                 <tableViewController id="h8f-rC-ggc" customClass="EpisodeListTableViewController" customModule="OppetArkivSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="66" sectionHeaderHeight="40" sectionFooterHeight="40" id="Mdz-ZE-t3i">
-                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1285" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EpisodeListCell" textLabel="QPQ-Ic-Ee9" style="IBUITableViewCellStyleDefault" id="OPX-ea-MoI">
-                                <rect key="frame" x="0.0" y="54" width="1920" height="66"/>
+                                <rect key="frame" x="0.0" y="54" width="1285" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OPX-ea-MoI" id="o1r-03-Y2D">
-                                    <rect key="frame" x="0.0" y="0.0" width="1904" height="66"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1269" height="66"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QPQ-Ic-Ee9">
-                                            <rect key="frame" x="20" y="0.0" width="1864" height="66"/>
+                                            <rect key="frame" x="20" y="0.0" width="1229" height="66"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="38"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -248,7 +248,7 @@
                         <viewControllerLayoutGuide type="bottom" id="C3H-sz-0u4"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="iBr-cl-XxJ">
-                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1285" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
                 </viewController>
@@ -273,7 +273,4 @@
             </objects>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="vlc-ex-woa"/>
-    </inferredMetricsTieBreakers>
 </document>
