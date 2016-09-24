@@ -123,7 +123,7 @@ class EpisodeListTableViewController: UITableViewController {
                     if let newController = segue.destinationViewController as? EpisodeDetailsViewController {
                         newController.videoId = videoId
                         newController.detailsUrl = baseUrl + href
-                        print(newController.detailsUrl)
+//                        print(newController.detailsUrl)
                     }
                 }
             }

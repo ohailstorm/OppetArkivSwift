@@ -10,26 +10,34 @@ import UIKit
 import Alamofire
 import HTMLReader
 
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "EpisodeCell"
 
 class EpisodeListCollectionViewController: UICollectionViewController {
     var requestUrl = ""
     let baseUrl = "http://www.oppetarkiv.se"
-    var episodeList : [HTMLElement] = []
+    var episodeList : [HTMLElement] = [] {
+        didSet {
+            self.collectionView?.reloadData()
+        }
+    }
     var imageList : [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+//        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
    
 
         // Do any additional setup after loading the view.
+        self.collectionView?.dataSource = self
+        
+        buildOneProgramsList()
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,18 +73,19 @@ class EpisodeListCollectionViewController: UICollectionViewController {
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 0
+        return episodeList.count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
-    
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! EpisodeCollectionViewCell
+        print(episodeList[indexPath.row].textContent)
+        cell.textLabel.text = episodeList[indexPath.row].textContent
         // Configure the cell
         
 //        cell.textLabel?.text = episodeList[indexPath.row].textContent
@@ -87,13 +96,20 @@ class EpisodeListCollectionViewController: UICollectionViewController {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
             dispatch_async(dispatch_get_main_queue(), { [unowned self] in
-//                cell.imageView?.image = UIImage(data: data!)
+                cell.imageView?.image = UIImage(data: data!)
+                cell.imageView.layer.cornerRadius = 10
+                
+//                cell.imageView?.layer.masksToBounds = true
+
+                cell.imageView?.clipsToBounds = true
                 cell.layoutSubviews()
+//                print(cell.canBecomeFocused())
                 });
         }
     
         return cell
     }
+    
 
     // MARK: UICollectionViewDelegate
 

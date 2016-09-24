@@ -13,7 +13,7 @@ import HTMLReader
 
 
 
-class ProgramListTableViewController: UITableViewController, UISearchResultsUpdating, LetterSelectionDelegate {
+class ProgramListTableViewController: UITableViewController, LetterSelectionDelegate {
     var programsList : [HTMLElement] = []
     var sectionedProgramsList : Dictionary<String, Array<String>> = [:]
     let baseUrl = "http://www.oppetarkiv.se"
@@ -114,7 +114,7 @@ class ProgramListTableViewController: UITableViewController, UISearchResultsUpda
         
         if let cell = sender as? UITableViewCell {
             if let index = self.tableView.indexPathForCell(cell) {
-                if let href = programsList[index.row].attributes["href"] {
+                if let href = filteredProgramsList[index.row].attributes["href"] {
                     if let newController = segue.destinationViewController as? EpisodeListTableViewController {
                         newController.requestUrl = baseUrl + href
                         print(newController.requestUrl)

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" initialViewController="EOG-1W-lFg">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Program List Table View Controller-->
@@ -14,12 +15,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProgramListCell" id="kE3-EO-JX4">
-                                <rect key="frame" x="0.0" y="54" width="1285" height="66"/>
+                                <rect key="frame" x="0.0" y="54" width="1245" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kE3-EO-JX4" id="KVo-TS-dHJ">
                                     <rect key="frame" x="0.0" y="0.0" width="1269" height="66"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="h8f-rC-ggc" kind="presentation" id="vlc-ex-woa"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                     </tableView>
@@ -36,7 +40,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LetterCell" textLabel="za9-Ze-gq0" style="IBUITableViewCellStyleDefault" id="qz6-xS-p8S">
-                                <rect key="frame" x="0.0" y="199" width="634" height="66"/>
+                                <rect key="frame" x="0.0" y="199" width="594" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qz6-xS-p8S" id="Emd-t0-oNE">
                                     <rect key="frame" x="0.0" y="0.0" width="618" height="66"/>
@@ -94,13 +98,19 @@
         <!--Program List Table View Controller-->
         <scene sceneID="KMQ-y9-i2j">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkp-O0-B0O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="MTo-zW-pe1">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
                 <tableViewController id="5sE-f9-y7L" customClass="ProgramListTableViewController" customModule="OppetArkivSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="66" sectionHeaderHeight="40" sectionFooterHeight="40" id="TcX-Hc-fjK">
                         <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProgramListCell" textLabel="fmA-3V-ogB" style="IBUITableViewCellStyleDefault" id="CUV-zN-xVl">
-                                <rect key="frame" x="0.0" y="54" width="1920" height="66"/>
+                                <rect key="frame" x="0.0" y="54" width="1880" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CUV-zN-xVl" id="g23-6M-0XC">
                                     <rect key="frame" x="0.0" y="0.0" width="1904" height="66"/>
@@ -126,32 +136,87 @@
                         </connections>
                     </tableView>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkp-O0-B0O" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="MTo-zW-pe1">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </view>
             </objects>
             <point key="canvasLocation" x="-808" y="-1699"/>
+        </scene>
+        <!--Episode List Collection View Controller-->
+        <scene sceneID="Ccc-ss-JcE">
+            <objects>
+                <collectionViewController id="2KC-0A-JNz" customClass="EpisodeListCollectionViewController" customModule="OppetArkivSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="B4L-Fa-uSf">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="F0d-cG-f9q">
+                            <size key="itemSize" width="300" height="240"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EpisodeCell" id="IKg-z0-xVU" customClass="EpisodeCollectionViewCell" customModule="OppetArkivSwift" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="380" height="300"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="380" height="300"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="bdM-h2-LpD">
+                                            <rect key="frame" x="32" y="28" width="320" height="180"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XyK-g5-fq9">
+                                            <rect key="frame" x="23" y="218" width="329" height="74"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="bdM-h2-LpD" firstAttribute="top" secondItem="IKg-z0-xVU" secondAttribute="topMargin" constant="20" id="0Cb-LH-Xe9"/>
+                                    <constraint firstItem="XyK-g5-fq9" firstAttribute="bottom" secondItem="IKg-z0-xVU" secondAttribute="bottomMargin" id="39l-I2-b4t"/>
+                                    <constraint firstItem="bdM-h2-LpD" firstAttribute="leading" secondItem="IKg-z0-xVU" secondAttribute="leadingMargin" constant="24" id="Ese-V5-bfP"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="bdM-h2-LpD" secondAttribute="trailing" constant="20" id="Q7g-9D-6q6"/>
+                                    <constraint firstItem="XyK-g5-fq9" firstAttribute="top" secondItem="bdM-h2-LpD" secondAttribute="bottom" constant="10" id="UhJ-tm-6ez"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="bdM-h2-LpD" secondAttribute="bottom" constant="84" id="X5N-JL-aq8"/>
+                                    <constraint firstItem="XyK-g5-fq9" firstAttribute="leading" secondItem="IKg-z0-xVU" secondAttribute="leadingMargin" constant="15" id="dgZ-ik-6Qs"/>
+                                    <constraint firstItem="bdM-h2-LpD" firstAttribute="centerX" secondItem="IKg-z0-xVU" secondAttribute="centerX" constant="2" id="j3s-fe-LSD"/>
+                                    <constraint firstItem="XyK-g5-fq9" firstAttribute="trailing" secondItem="bdM-h2-LpD" secondAttribute="trailing" id="jbj-WK-sCF"/>
+                                </constraints>
+                                <size key="customSize" width="380" height="300"/>
+                                <connections>
+                                    <outlet property="imageView" destination="bdM-h2-LpD" id="nNd-Ln-zPq"/>
+                                    <outlet property="textLabel" destination="XyK-g5-fq9" id="1R2-La-kHp"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="2KC-0A-JNz" id="rZx-VN-qWq"/>
+                            <outlet property="delegate" destination="2KC-0A-JNz" id="qkS-J4-bYz"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zsm-2j-kKR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1231" y="-3203"/>
         </scene>
         <!--Episode List Table View Controller-->
         <scene sceneID="Okd-U6-FeR">
             <objects>
                 <tableViewController id="h8f-rC-ggc" customClass="EpisodeListTableViewController" customModule="OppetArkivSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="66" sectionHeaderHeight="40" sectionFooterHeight="40" id="Mdz-ZE-t3i">
-                        <rect key="frame" x="0.0" y="0.0" width="1285" height="1080"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EpisodeListCell" textLabel="QPQ-Ic-Ee9" style="IBUITableViewCellStyleDefault" id="OPX-ea-MoI">
-                                <rect key="frame" x="0.0" y="54" width="1245" height="66"/>
+                                <rect key="frame" x="0.0" y="54" width="1920" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OPX-ea-MoI" id="o1r-03-Y2D">
-                                    <rect key="frame" x="0.0" y="0.0" width="1269" height="66"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1904" height="66"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QPQ-Ic-Ee9">
-                                            <rect key="frame" x="20" y="0.0" width="1229" height="66"/>
+                                            <rect key="frame" x="20" y="0.0" width="1864" height="66"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="38"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -183,7 +248,7 @@
                         <viewControllerLayoutGuide type="bottom" id="C3H-sz-0u4"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="iBr-cl-XxJ">
-                        <rect key="frame" x="0.0" y="0.0" width="1285" height="1080"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
                 </viewController>
@@ -208,4 +273,7 @@
             </objects>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="vlc-ex-woa"/>
+    </inferredMetricsTieBreakers>
 </document>
