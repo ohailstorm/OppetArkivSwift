@@ -160,28 +160,28 @@
                                     <rect key="frame" x="0.0" y="0.0" width="380" height="300"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="bdM-h2-LpD">
-                                            <rect key="frame" x="32" y="28" width="320" height="190"/>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XyK-g5-fq9">
-                                            <rect key="frame" x="23" y="253" width="329" height="39"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.29999999999999999" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XyK-g5-fq9">
+                                            <rect key="frame" x="23" y="254" width="329" height="38"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="bdM-h2-LpD">
+                                            <rect key="frame" x="32" y="28" width="320" height="190"/>
+                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
                                     <constraint firstItem="bdM-h2-LpD" firstAttribute="top" secondItem="IKg-z0-xVU" secondAttribute="topMargin" constant="20" id="0Cb-LH-Xe9"/>
-                                    <constraint firstItem="XyK-g5-fq9" firstAttribute="bottom" secondItem="IKg-z0-xVU" secondAttribute="bottomMargin" id="39l-I2-b4t"/>
                                     <constraint firstItem="bdM-h2-LpD" firstAttribute="leading" secondItem="IKg-z0-xVU" secondAttribute="leadingMargin" constant="24" id="Ese-V5-bfP"/>
+                                    <constraint firstItem="XyK-g5-fq9" firstAttribute="bottom" secondItem="IKg-z0-xVU" secondAttribute="bottomMargin" id="KzT-4n-Eiq"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="bdM-h2-LpD" secondAttribute="trailing" constant="20" id="Q7g-9D-6q6"/>
-                                    <constraint firstItem="XyK-g5-fq9" firstAttribute="top" relation="greaterThanOrEqual" secondItem="bdM-h2-LpD" secondAttribute="bottom" id="UhJ-tm-6ez"/>
+                                    <constraint firstItem="XyK-g5-fq9" firstAttribute="leading" secondItem="IKg-z0-xVU" secondAttribute="leadingMargin" constant="15" id="W13-aP-v5r"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="bdM-h2-LpD" secondAttribute="bottom" constant="74" id="X5N-JL-aq8"/>
-                                    <constraint firstItem="XyK-g5-fq9" firstAttribute="leading" secondItem="IKg-z0-xVU" secondAttribute="leadingMargin" constant="15" id="dgZ-ik-6Qs"/>
+                                    <constraint firstItem="XyK-g5-fq9" firstAttribute="top" secondItem="bdM-h2-LpD" secondAttribute="bottom" constant="36" id="g6u-mB-geP"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="XyK-g5-fq9" secondAttribute="trailing" constant="20" id="g7a-nX-I1z"/>
                                     <constraint firstItem="bdM-h2-LpD" firstAttribute="centerX" secondItem="IKg-z0-xVU" secondAttribute="centerX" constant="2" id="j3s-fe-LSD"/>
-                                    <constraint firstItem="XyK-g5-fq9" firstAttribute="trailing" secondItem="bdM-h2-LpD" secondAttribute="trailing" id="jbj-WK-sCF"/>
                                 </constraints>
                                 <size key="customSize" width="380" height="300"/>
                                 <connections>
