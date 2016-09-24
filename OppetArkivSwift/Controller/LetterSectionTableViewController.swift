@@ -10,7 +10,7 @@ import UIKit
 import HTMLReader
 
 protocol LetterSelectionDelegate: class {
-    func letterSelected(filterLetter: Character?)
+    func letterSelected(_ filterLetter: Character?)
 }
 
 class LetterSectionTableViewController: UITableViewController {
@@ -34,33 +34,33 @@ class LetterSectionTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return letterList.count
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("LetterCell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "LetterCell", for: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text =  letterList[indexPath.row] ?? ""
+        cell.textLabel?.text =  letterList[(indexPath as NSIndexPath).row] ?? ""
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        guard indexPath.row != 0  else {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard (indexPath as NSIndexPath).row != 0  else {
             self.delegate?.letterSelected(nil)
             return
         }
         
         
-            if let selectedLetter = letterList[indexPath.row].lowercaseString.characters.first {
+            if let selectedLetter = letterList[(indexPath as NSIndexPath).row].lowercased().characters.first {
                 self.delegate?.letterSelected(selectedLetter)
             }
     

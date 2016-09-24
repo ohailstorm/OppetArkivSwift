@@ -1,18 +1,28 @@
 PODS:
-  - Alamofire (3.5.0)
-  - HTMLReader (0.9.6)
-  - SwiftyJSON (2.3.2)
+  - Alamofire (4.0.0)
+  - HTMLReader (1.0.1)
+  - SwiftyJSON (3.0.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 3.0)
-  - HTMLReader (~> 0.9)
-  - SwiftyJSON (~> 2.3.0)
+  - Alamofire (~> 4.0)
+  - HTMLReader (from `https://github.com/nolanw/HTMLReader.git`, branch `swift-3-xcode-8`)
+  - SwiftyJSON (= 3.0.0)
+
+EXTERNAL SOURCES:
+  HTMLReader:
+    :branch: swift-3-xcode-8
+    :git: https://github.com/nolanw/HTMLReader.git
+
+CHECKOUT OPTIONS:
+  HTMLReader:
+    :commit: 834c807288e4592ff318adc2141c744ff5cb2913
+    :git: https://github.com/nolanw/HTMLReader.git
 
 SPEC CHECKSUMS:
-  Alamofire: b70a7352335f8ea5babd0a923eb7e8eacc67b877
-  HTMLReader: 7e21488ee378afc56ccade8af35840c4e03e434c
-  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  Alamofire: fef59f00388f267e52d9b432aa5d93dc97190f14
+  HTMLReader: 9c9a018b11d7e9884a52ab97ce1bd23bdca7fddb
+  SwiftyJSON: f57b2b44bc166617372d1c70773591fe9f0f5fd4
 
-PODFILE CHECKSUM: cf0ff8ea2e90ba7d7e2cfe1873c312bf1246deb5
+PODFILE CHECKSUM: fea4047072b2b8bcea88119fa5a9216a1140ddd4
 
 COCOAPODS: 1.0.0.beta.3

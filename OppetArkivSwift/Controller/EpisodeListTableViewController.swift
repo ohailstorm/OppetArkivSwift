@@ -35,29 +35,29 @@ class EpisodeListTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return episodeList.count
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("EpisodeListCell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "EpisodeListCell", for: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = episodeList[indexPath.row].textContent
+        cell.textLabel?.text = episodeList[(indexPath as NSIndexPath).row].textContent
         //print(episodeList[indexPath.row].attributes)
         
-        let url = NSURL(string: "http:" + self.imageList[indexPath.row])
+        let url = URL(string: "http:" + self.imageList[(indexPath as NSIndexPath).row])
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
-            dispatch_async(dispatch_get_main_queue(), { [unowned self] in
+        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
+            let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
+            DispatchQueue.main.async(execute: { [unowned self] in
                 cell.imageView?.image = UIImage(data: data!)
                 cell.layoutSubviews()
             });
@@ -68,7 +68,7 @@ class EpisodeListTableViewController: UITableViewController {
     }
  
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200
     }
     /*
@@ -110,17 +110,17 @@ class EpisodeListTableViewController: UITableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         print("preparing")
         if let cell = sender as? UITableViewCell {
-            if let index = self.tableView.indexPathForCell(cell) {
+            if let index = self.tableView.indexPath(for: cell) {
 //                print(episodeList[index.row].attributes)
-                if let href = episodeList[index.row].attributes["href"] {
-                    let videoId = href.componentsSeparatedByString("/")[2]
+                if let href = episodeList[(index as NSIndexPath).row].attributes["href"] {
+                    let videoId = href.components(separatedBy: "/")[2]
 //                    print(videoId)
-                    if let newController = segue.destinationViewController as? EpisodeDetailsViewController {
+                    if let newController = segue.destination as? EpisodeDetailsViewController {
                         newController.videoId = videoId
                         newController.detailsUrl = baseUrl + href
 //                        print(newController.detailsUrl)
@@ -132,8 +132,8 @@ class EpisodeListTableViewController: UITableViewController {
     }
  
     
-    func updateProgramsList(newList : [HTMLElement]) {
-        self.episodeList.appendContentsOf(newList)
+    func updateProgramsList(_ newList : [HTMLElement]) {
+        self.episodeList.append(contentsOf: newList)
         for element in newList {
             //            print(element)
         }
@@ -146,7 +146,7 @@ class EpisodeListTableViewController: UITableViewController {
         
         //       "http://www.oppetarkiv.se/program"
         
-        Alamofire.request(.GET, requestUrl)
+        Alamofire.request(requestUrl)
             .responseString { responseString in
                 guard responseString.result.error == nil else {
                     // completionHandler(responseString.result.error!)
@@ -154,7 +154,7 @@ class EpisodeListTableViewController: UITableViewController {
                     
                 }
                 guard let htmlAsString = responseString.result.value else {
-                    let error = Error.errorWithCode(.StringSerializationFailed, failureReason: "Could not get HTML as String")
+                   
                     // completionHandler(error)
                     
                     return
@@ -163,7 +163,7 @@ class EpisodeListTableViewController: UITableViewController {
                 let doc = HTMLDocument(string: htmlAsString)
                 
                 //                // find the table of charts in the HTML
-                let tables = doc.nodesMatchingSelector(".svtJsLoadHref")
+                let tables = doc.nodes(matchingSelector: ".svtJsLoadHref")
                 
                 var chartsTable:HTMLElement?
                 for table in tables {
@@ -175,10 +175,10 @@ class EpisodeListTableViewController: UITableViewController {
 //                    print(table.textContent)
                 }
                 
-                let images = doc.nodesMatchingSelector(".svtHide-No-Js")
+                let images = doc.nodes(matchingSelector: ".svtHide-No-Js")
                 
                 for image in images {
-                    if let src = image.attributes["srcset"]?.componentsSeparatedByString(" ").first {
+                    if let src = image.attributes["srcset"]?.components(separatedBy:" ").first {
 //                        print(src)
                         self.imageList.append(src)
                     }
@@ -186,7 +186,7 @@ class EpisodeListTableViewController: UITableViewController {
                 self.updateProgramsList(tables)
                 
                 //check if there is more content to load
-                if let moreTitlesAvailable = doc.nodesMatchingSelector(".svtoa-js-search-step-button").filter({ $0.attributes["data-page-dir"] != "-1"}).first {
+                if let moreTitlesAvailable = doc.nodes(matchingSelector: ".svtoa-js-search-step-button").filter({ $0.attributes["data-page-dir"] != "-1"}).first {
                     print(moreTitlesAvailable.attributes)
                     if let suffix = moreTitlesAvailable.attributes["href"]{
                         self.requestUrl =  self.baseUrl + suffix

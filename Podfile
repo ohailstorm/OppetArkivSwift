@@ -1,9 +1,17 @@
 #source 'https://github.com/CocoaPods/Specs.git'
-#platform :tvos, '9.0'
+#platform :ios, '10.0'
 use_frameworks!
 
 target 'OppetArkivSwift' do
-  pod 'HTMLReader', '~> 0.9'
-  pod 'Alamofire', '~> 3.0'
-  pod 'SwiftyJSON', '~> 2.3.0'
+  pod 'HTMLReader', :git => 'https://github.com/nolanw/HTMLReader.git', :branch => 'swift-3-xcode-8'
+  pod 'Alamofire', '~> 4.0'
+  pod 'SwiftyJSON', '3.0.0'
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['SWIFT_VERSION'] = '3.0'
+    end
+  end
 end

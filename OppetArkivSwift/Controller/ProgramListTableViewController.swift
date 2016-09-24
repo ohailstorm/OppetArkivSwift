@@ -48,22 +48,22 @@ class ProgramListTableViewController: UITableViewController, LetterSelectionDele
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return filteredProgramsList.count
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ProgramListCell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ProgramListCell", for: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = filteredProgramsList[indexPath.row].textContent
+        cell.textLabel?.text = filteredProgramsList[(indexPath as NSIndexPath).row].textContent
         
         return cell
     }
@@ -108,21 +108,21 @@ class ProgramListTableViewController: UITableViewController, LetterSelectionDele
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
         if let cell = sender as? UITableViewCell {
-            if let index = self.tableView.indexPathForCell(cell) {
-                if let href = filteredProgramsList[index.row].attributes["href"] {
-                    if let newController = segue.destinationViewController as? EpisodeListTableViewController {
+            if let index = self.tableView.indexPath(for: cell) {
+                if let href = filteredProgramsList[(index as NSIndexPath).row].attributes["href"] {
+                    if let newController = segue.destination as? EpisodeListTableViewController {
                         newController.requestUrl = baseUrl + href
                         print(newController.requestUrl)
                     }
                 }
                 // If CollectionViewCell used
-                if let href = filteredProgramsList[index.row].attributes["href"] {
-                    if let newController = segue.destinationViewController as? EpisodeListCollectionViewController {
+                if let href = filteredProgramsList[(index as NSIndexPath).row].attributes["href"] {
+                    if let newController = segue.destination as? EpisodeListCollectionViewController {
                         newController.requestUrl = baseUrl + href
                         print(newController.requestUrl)
                     }
@@ -147,7 +147,7 @@ class ProgramListTableViewController: UITableViewController, LetterSelectionDele
 //    }
 // 
 
-    func updateProgramsList(newList : [HTMLElement]) {
+    func updateProgramsList(_ newList : [HTMLElement]) {
         self.programsList = newList
         var nameArray : [String] = []
         for element in newList {
@@ -159,12 +159,12 @@ class ProgramListTableViewController: UITableViewController, LetterSelectionDele
 //        self.tableView.reloadData()
     }
     
-    func buildAllProgramsList(url: String){
+    func buildAllProgramsList(_ url: String){
         
         
         //       "http://www.oppetarkiv.se/program"
         
-        Alamofire.request(.GET, url)
+        Alamofire.request(url)
             .responseString { responseString in
                 guard responseString.result.error == nil else {
                     // completionHandler(responseString.result.error!)
@@ -172,7 +172,7 @@ class ProgramListTableViewController: UITableViewController, LetterSelectionDele
                     
                 }
                 guard let htmlAsString = responseString.result.value else {
-                    let error = Error.errorWithCode(.StringSerializationFailed, failureReason: "Could not get HTML as String")
+                
                     // completionHandler(error)
                     
                     return
@@ -181,7 +181,7 @@ class ProgramListTableViewController: UITableViewController, LetterSelectionDele
                 let doc = HTMLDocument(string: htmlAsString)
                 
                 //                // find the table of charts in the HTML
-                let tables = doc.nodesMatchingSelector(".svtoa-anchor-list-link")
+                let tables = doc.nodes(matchingSelector: ".svtoa-anchor-list-link")
                 
                 var chartsTable:HTMLElement?
                 for table in tables {
@@ -198,7 +198,7 @@ class ProgramListTableViewController: UITableViewController, LetterSelectionDele
         
     }
     
-    func letterSelected(filterLetter: Character?) {
+    func letterSelected(_ filterLetter: Character?) {
         guard filterLetter != nil else {
             filteredProgramsList = programsList
 //            self.tableView.reloadData()
@@ -219,7 +219,7 @@ class ProgramListTableViewController: UITableViewController, LetterSelectionDele
         
         
         filteredProgramsList = programsList.filter({
-            if let programLetter = $0.textContent.lowercaseString.characters.first {
+            if let programLetter = $0.textContent.lowercased().characters.first {
                 return programLetter == filterLetter
             }
             return false

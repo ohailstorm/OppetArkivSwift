@@ -46,7 +46,7 @@ class EpisodeDetailsViewController: UIViewController {
         
         //       "http://www.oppetarkiv.se/program"
         
-        Alamofire.request(.GET, detailsUrl)
+        Alamofire.request(detailsUrl)
             .responseString { responseString in
                 guard responseString.result.error == nil else {
                     // completionHandler(responseString.result.error!)
@@ -54,7 +54,7 @@ class EpisodeDetailsViewController: UIViewController {
                     
                 }
                 guard let htmlAsString = responseString.result.value else {
-                    let error = Error.errorWithCode(.StringSerializationFailed, failureReason: "Could not get HTML as String")
+                   
                     // completionHandler(error)
                     
                     return
@@ -64,7 +64,7 @@ class EpisodeDetailsViewController: UIViewController {
                 let doc = HTMLDocument(string: htmlAsString)
                 
                 //                // find the table of charts in the HTML
-                let tables = doc.nodesMatchingSelector(".svtoa-anchor-list-link")
+                let tables = doc.nodes(matchingSelector: ".svtoa-anchor-list-link")
                 
                 var chartsTable:HTMLElement?
                 for table in tables {
@@ -75,7 +75,7 @@ class EpisodeDetailsViewController: UIViewController {
                     //                        }
                     //print(table.textContent)
                 }
-                let video = doc.nodesMatchingSelector("[data-video-id]")
+                let video = doc.nodes(matchingSelector: "[data-video-id]")
                 if let id = video.first?.attributes["data-video-id"] {
                     self.videoId = id
                     self.getVideoStream()
@@ -90,7 +90,8 @@ class EpisodeDetailsViewController: UIViewController {
         
         //       "http://www.oppetarkiv.se/program"
         
-        Alamofire.request(.GET, requestUrl)
+        
+        Alamofire.request(requestUrl)
             .responseString { responseString in
                 guard responseString.result.error == nil else {
                     // completionHandler(responseString.result.error!)
@@ -98,13 +99,13 @@ class EpisodeDetailsViewController: UIViewController {
                     
                 }
                 guard let htmlAsString = responseString.result.value else {
-                    let error = Error.errorWithCode(.StringSerializationFailed, failureReason: "Could not get HTML as String")
+                 
                     // completionHandler(error)
                     
                     return
                 }
 //                print(responseString)
-                if let dataFromString = htmlAsString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
+                if let dataFromString = htmlAsString.data(using: String.Encoding.utf8, allowLossyConversion: false) {
                     let json = JSON(data: dataFromString)
 //                    print(json["videoReferences"])
                     for item in json["videoReferences"].arrayValue {
@@ -120,17 +121,17 @@ class EpisodeDetailsViewController: UIViewController {
         
     }
     
-    func playVideo(url: String) {
-        var videoURL: NSURL = NSURL(string: url)!
+    func playVideo(_ url: String) {
+        let videoURL: URL = URL(string: url)!
         
          let playerViewController = AVPlayerViewController()
         
 //        playerViewController.player = AVPlayer.init(URL: videoURL)
-        playerViewController.player = AVPlayer(URL: videoURL)
+        playerViewController.player = AVPlayer(url: videoURL)
         
         //        moviePlayerController.movieSourceType = MPMovieSourceType.File
         
-        playerViewController.modalInPopover = true
+        playerViewController.isModalInPopover = true
         
         
         self.addChildViewController(playerViewController)
@@ -140,7 +141,7 @@ class EpisodeDetailsViewController: UIViewController {
         playerViewController.player?.play()
 //        playerViewController.loadView()
         playerViewController.showsPlaybackControls = true
-        playerViewController.didMoveToParentViewController(self)
+        playerViewController.didMove(toParentViewController: self)
         
        
         
