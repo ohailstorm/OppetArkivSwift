@@ -17,8 +17,6 @@ class EpisodeDetailsViewController: UIViewController {
     var detailsUrl = ""
     var videoId = ""
     
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,38 +42,21 @@ class EpisodeDetailsViewController: UIViewController {
     
     func getVideoDetails(){
         
-        //       "http://www.oppetarkiv.se/program"
-        
         Alamofire.request(detailsUrl)
             .responseString { responseString in
                 guard responseString.result.error == nil else {
                     // completionHandler(responseString.result.error!)
                     return
-                    
                 }
                 guard let htmlAsString = responseString.result.value else {
-                   
                     // completionHandler(error)
-                    
                     return
                 }
-//                print(responseString)
-//                                print(htmlAsString)
+
                 let doc = HTMLDocument(string: htmlAsString)
-                
-                //                // find the table of charts in the HTML
                 let tables = doc.nodes(matchingSelector: ".svtoa-anchor-list-link")
-                
-                var chartsTable:HTMLElement?
-                for table in tables {
-                    //                    if let tableElement = table as? HTMLElement {
-                    //                        if self.isChartsTable(tableElement) {
-                    //                            chartsTable = tableElement
-                    //                            break
-                    //                        }
-                    //print(table.textContent)
-                }
                 let video = doc.nodes(matchingSelector: "[data-video-id]")
+                
                 if let id = video.first?.attributes["data-video-id"] {
                     self.videoId = id
                     self.getVideoStream()
@@ -86,10 +67,7 @@ class EpisodeDetailsViewController: UIViewController {
     }
     
     func getVideoStream(){
-        var requestUrl = "http://www.svt.se/videoplayer-api/video/" + videoId
-        
-        //       "http://www.oppetarkiv.se/program"
-        
+        var requestUrl = "http://api.svt.se/videoplayer-api/video/" + videoId
         
         Alamofire.request(requestUrl)
             .responseString { responseString in
@@ -104,7 +82,7 @@ class EpisodeDetailsViewController: UIViewController {
                     
                     return
                 }
-
+                print(htmlAsString)
                 if let dataFromString = htmlAsString.data(using: String.Encoding.utf8, allowLossyConversion: false) {
                     let json = JSON(data: dataFromString)
                     for item in json["videoReferences"].arrayValue {
@@ -122,13 +100,10 @@ class EpisodeDetailsViewController: UIViewController {
     
     func playVideo(_ url: String) {
         let videoURL: URL = URL(string: url)!
-        
-         let playerViewController = AVPlayerViewController()
+        let playerViewController = AVPlayerViewController()
         
         playerViewController.player = AVPlayer(url: videoURL)
-    
         playerViewController.isModalInPopover = true
-        
         
         self.addChildViewController(playerViewController)
         playerViewController.view.frame = self.view.frame
@@ -137,10 +112,5 @@ class EpisodeDetailsViewController: UIViewController {
         playerViewController.player?.play()
         playerViewController.showsPlaybackControls = true
         playerViewController.didMove(toParentViewController: self)
-        
-       
-        
-        
     }
-
 }
