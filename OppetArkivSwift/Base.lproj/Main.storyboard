@@ -186,6 +186,7 @@
                                 <connections>
                                     <outlet property="imageView" destination="bdM-h2-LpD" id="nNd-Ln-zPq"/>
                                     <outlet property="textLabel" destination="XyK-g5-fq9" id="1R2-La-kHp"/>
+                                    <segue destination="w2j-xu-NUg" kind="presentation" id="WXq-v6-IQc"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -275,6 +276,9 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <nil key="statusBar"/>
         <simulatedOrientationMetrics key="orientation" orientation="landscapeRight"/>
-        <simulatedScreenMetrics key="destination"/>
+        <simulatedScreenMetrics key="destination" type="appleTV.dark"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="mMN-aE-9fZ"/>
+    </inferredMetricsTieBreakers>
 </document>

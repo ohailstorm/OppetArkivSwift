@@ -15,7 +15,7 @@ private let reuseIdentifier = "EpisodeCell"
 class EpisodeListCollectionViewController: UICollectionViewController {
     var requestUrl : String = ""
     var baseUrl : String  = "http://www.oppetarkiv.se"
-    var episodeList : [HTMLElement] = [] {
+    var episodeList : [Episode] = [] {
         didSet {
             self.collectionView?.reloadData()
         }
@@ -55,16 +55,13 @@ class EpisodeListCollectionViewController: UICollectionViewController {
         print("preparing")
         if let cell = sender as? UICollectionViewCell {
             if let index = self.collectionView?.indexPath(for: cell) {
-                //                print(episodeList[index.row].attributes)
-                if let href = episodeList[(index as NSIndexPath).row].attributes["href"] {
-                    let videoId = href.components(separatedBy: "/")[2]
-                    //                    print(videoId)
+                    let episode = episodeList[(index as NSIndexPath).row]
                     if let newController = segue.destination as? EpisodeDetailsViewController {
-                        newController.videoId = videoId
-                        newController.detailsUrl = baseUrl + href
+                        newController.videoId = episode.videoId
+                        newController.detailsUrl = episode.detailsUrl
                         print(newController.detailsUrl)
                     }
-                }
+
             }
             
         }
@@ -85,14 +82,14 @@ class EpisodeListCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! EpisodeCollectionViewCell
-        print(episodeList[(indexPath as NSIndexPath).row].textContent)
-        cell.textLabel.text = episodeList[(indexPath as NSIndexPath).row].textContent
+       
+        cell.textLabel.text = episodeList[(indexPath as NSIndexPath).row].title
         // Configure the cell
         
 //        cell.textLabel?.text = episodeList[indexPath.row].textContent
-        //print(episodeList[indexPath.row].attributes)
+        print(self.episodeList[(indexPath as NSIndexPath).row].imageUrl)
         
-        let url = URL(string: "http:" + self.imageList[(indexPath as NSIndexPath).row])
+        let url = URL(string: self.episodeList[(indexPath as NSIndexPath).row].imageUrl)
         
         DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
             let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
@@ -100,12 +97,10 @@ class EpisodeListCollectionViewController: UICollectionViewController {
                 cell.imageView?.image = UIImage(data: data!)
                 cell.imageView.layer.cornerRadius = 10
                 
-//                cell.imageView?.layer.masksToBounds = true
-
                 cell.imageView?.clipsToBounds = true
                 cell.imageView.sizeToFit()
                 cell.layoutSubviews()
-//                print(cell.canBecomeFocused())
+
                 });
         }
     
@@ -144,17 +139,14 @@ class EpisodeListCollectionViewController: UICollectionViewController {
     }
     */
     
-    func updateProgramsList(_ newList : [HTMLElement]) {
+    func updateProgramsList(_ newList : [Episode]) {
         self.episodeList.append(contentsOf: newList)
-        for element in newList {
-            //            print(element)
-        }
         self.collectionView?.reloadData()
         
     }
     
     func buildOneProgramsList(){
-        
+        print("building")
         
         //       "http://www.oppetarkiv.se/program"
         
@@ -171,23 +163,36 @@ class EpisodeListCollectionViewController: UICollectionViewController {
                     
                     return
                 }
-                //                print(htmlAsString)
+                
+            
                 let doc = HTMLDocument(string: htmlAsString)
                 
-                //                // find the table of charts in the HTML
-                let tables = doc.nodes(matchingSelector: ".svtJsLoadHref")
+                // find the table of episodes in the HTML
+                let episodeHTMLTable = doc.nodes(matchingSelector: ".svtJsLoadHref")
+                let imagesHTMLTable = doc.nodes(matchingSelector: ".svtHide-No-Js")
                 
-
+                var episodesList: [Episode] = []
+                var imagesList: [String] = []
                 
-                let images = doc.nodes(matchingSelector: ".svtHide-No-Js")
                 
-                for image in images {
+                for image in imagesHTMLTable {
                     if let src = image.attributes["srcset"]?.components(separatedBy: " ").first {
-                        //                        print(src)
-                        self.imageList.append(src)
+                        imagesList.append(src)
                     }
                 }
-                self.updateProgramsList(tables)
+                
+                for (index, oneEpisode) in episodeHTMLTable.enumerated() {
+                    if let detailsUrl = oneEpisode.attributes["href"], let imageUrl = imagesList[index].components(separatedBy: " ").first {
+                        let videoId = detailsUrl.components(separatedBy: "/")[2]
+                        let episode = Episode(title: oneEpisode.textContent, detailsUrl: detailsUrl, imageUrl: "http:" + imageUrl, videoId: videoId)
+                        
+                        episodesList.append(episode)
+                      
+                    }
+                }
+                
+                
+                self.updateProgramsList(episodesList)
                 
                 //check if there is more content to load
                 if let moreTitlesAvailable = doc.nodes(matchingSelector: ".svtoa-js-search-step-button").filter({ $0.attributes["data-page-dir"] != "-1"}).first {

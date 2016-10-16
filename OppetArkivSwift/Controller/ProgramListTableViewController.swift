@@ -14,10 +14,10 @@ import HTMLReader
 
 
 class ProgramListTableViewController: UITableViewController, LetterSelectionDelegate {
-    var programsList : [HTMLElement] = []
-    var sectionedProgramsList : Dictionary<String, Array<String>> = [:]
+    var programsList : [Program] = []
+    
     let baseUrl = "http://www.oppetarkiv.se"
-    var filteredProgramsList : [HTMLElement] = [] {
+    var filteredProgramsList : [Program] = [] {
         didSet {
             self.tableView.reloadData()
         }
@@ -63,7 +63,7 @@ class ProgramListTableViewController: UITableViewController, LetterSelectionDele
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProgramListCell", for: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = filteredProgramsList[(indexPath as NSIndexPath).row].textContent
+        cell.textLabel?.text = filteredProgramsList[(indexPath as NSIndexPath).row].title
         
         return cell
     }
@@ -114,19 +114,21 @@ class ProgramListTableViewController: UITableViewController, LetterSelectionDele
         
         if let cell = sender as? UITableViewCell {
             if let index = self.tableView.indexPath(for: cell) {
-                if let href = filteredProgramsList[(index as NSIndexPath).row].attributes["href"] {
+                let url = filteredProgramsList[(index as NSIndexPath).row].detailsUrl
+                print(url)
+//                if let href = filteredProgramsList[(index as NSIndexPath).row].attributes["href"] {
                     if let newController = segue.destination as? EpisodeListTableViewController {
-                        newController.requestUrl = baseUrl + href
+                        newController.requestUrl = url
                         print(newController.requestUrl)
                     }
-                }
+//                }
                 // If CollectionViewCell used
-                if let href = filteredProgramsList[(index as NSIndexPath).row].attributes["href"] {
+//                if let href = filteredProgramsList[(index as NSIndexPath).row].attributes["href"] {
                     if let newController = segue.destination as? EpisodeListCollectionViewController {
-                        newController.requestUrl = baseUrl + href
+                        newController.requestUrl = url
                         print(newController.requestUrl)
                     }
-                }
+//                }
             }
             
         }
@@ -147,13 +149,9 @@ class ProgramListTableViewController: UITableViewController, LetterSelectionDele
 //    }
 // 
 
-    func updateProgramsList(_ newList : [HTMLElement]) {
+    func updateProgramsList(_ newList : [Program]) {
         self.programsList = newList
-        var nameArray : [String] = []
-        for element in newList {
-            //            print(element)
-            nameArray.append(element.textContent)
-        }
+     
         self.filteredProgramsList = newList
     
 //        self.tableView.reloadData()
@@ -183,16 +181,25 @@ class ProgramListTableViewController: UITableViewController, LetterSelectionDele
                 //                // find the table of charts in the HTML
                 let tables = doc.nodes(matchingSelector: ".svtoa-anchor-list-link")
                 
-                var chartsTable:HTMLElement?
+                var programList : [Program] = []
+                
+                
                 for table in tables {
                     //                    if let tableElement = table as? HTMLElement {
                     //                        if self.isChartsTable(tableElement) {
                     //                            chartsTable = tableElement
                     //                            break
                     //                        }
-                    //print(table.textContent)
+                    print(table.attributes)
+                    if let url = table.attributes["href"] {
+                        programList.append(Program(title: table.textContent, detailsUrl: url))
+                    }
+                    
                 }
-                self.updateProgramsList(tables)
+                
+                
+                
+                self.updateProgramsList(programList)
                 
         }
         
@@ -208,7 +215,7 @@ class ProgramListTableViewController: UITableViewController, LetterSelectionDele
         guard filterLetter != "#".characters.first else {
             
             filteredProgramsList = programsList.filter({
-                if let substr = $0.textContent.characters.first {
+                if let substr = $0.title.characters.first {
                     return Int(String(substr)) != nil
                 }
                 return false
@@ -219,7 +226,7 @@ class ProgramListTableViewController: UITableViewController, LetterSelectionDele
         
         
         filteredProgramsList = programsList.filter({
-            if let programLetter = $0.textContent.lowercased().characters.first {
+            if let programLetter = $0.title.lowercased().characters.first {
                 return programLetter == filterLetter
             }
             return false

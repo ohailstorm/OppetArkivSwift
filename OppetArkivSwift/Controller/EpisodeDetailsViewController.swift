@@ -104,10 +104,9 @@ class EpisodeDetailsViewController: UIViewController {
                     
                     return
                 }
-//                print(responseString)
+
                 if let dataFromString = htmlAsString.data(using: String.Encoding.utf8, allowLossyConversion: false) {
                     let json = JSON(data: dataFromString)
-//                    print(json["videoReferences"])
                     for item in json["videoReferences"].arrayValue {
                         if item["format"].stringValue == "hls" {
                             print(item["url"].stringValue)
@@ -126,11 +125,8 @@ class EpisodeDetailsViewController: UIViewController {
         
          let playerViewController = AVPlayerViewController()
         
-//        playerViewController.player = AVPlayer.init(URL: videoURL)
         playerViewController.player = AVPlayer(url: videoURL)
-        
-        //        moviePlayerController.movieSourceType = MPMovieSourceType.File
-        
+    
         playerViewController.isModalInPopover = true
         
         
@@ -139,7 +135,6 @@ class EpisodeDetailsViewController: UIViewController {
         self.view.addSubview(playerViewController.view)
         
         playerViewController.player?.play()
-//        playerViewController.loadView()
         playerViewController.showsPlaybackControls = true
         playerViewController.didMove(toParentViewController: self)
         

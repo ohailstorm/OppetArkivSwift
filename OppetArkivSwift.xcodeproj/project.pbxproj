@@ -16,6 +16,8 @@
 		55F4C2171D8DA55B00E23CFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F4C2161D8DA55B00E23CFB /* AppDelegate.swift */; };
 		55F4C21C1D8DA55B00E23CFB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55F4C21A1D8DA55B00E23CFB /* Main.storyboard */; };
 		55F4C21E1D8DA55B00E23CFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F4C21D1D8DA55B00E23CFB /* Assets.xcassets */; };
+		55F6C8321DB3D771006E099B /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F6C8311DB3D771006E099B /* Program.swift */; };
+		55F6C8341DB3DCC9006E099B /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F6C8331DB3DCC9006E099B /* Episode.swift */; };
 		71AE72697A4E74F193F18EB9 /* Pods_OppetArkivSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 386A623F89669AD5EE818EFC /* Pods_OppetArkivSwift.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +34,8 @@
 		55F4C21B1D8DA55B00E23CFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		55F4C21D1D8DA55B00E23CFB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55F4C21F1D8DA55B00E23CFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		55F6C8311DB3D771006E099B /* Program.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Program.swift; sourceTree = "<group>"; };
+		55F6C8331DB3DCC9006E099B /* Episode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Episode.swift; path = Model/Episode.swift; sourceTree = "<group>"; };
 		BF5C4EFDB343E515DC8488BE /* Pods-OppetArkivSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OppetArkivSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OppetArkivSwift/Pods-OppetArkivSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		D53B370FCB0B523B8DF65D8F /* Pods-OppetArkivSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OppetArkivSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-OppetArkivSwift/Pods-OppetArkivSwift.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -51,6 +55,8 @@
 		55611D0E1D8EB39D00525148 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				55F6C8311DB3D771006E099B /* Program.swift */,
+				55F6C8331DB3DCC9006E099B /* Episode.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -159,8 +165,8 @@
 				TargetAttributes = {
 					55F4C2121D8DA55B00E23CFB = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = FPLGKL6M6X;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -247,12 +253,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55F6C8321DB3D771006E099B /* Program.swift in Sources */,
 				55DCA9101D9003C300BBECA6 /* EpisodeListTableViewController.swift in Sources */,
 				556A552C1D8FFFD2007921F9 /* ProgramListTableViewController.swift in Sources */,
 				55D57B751D95C99E00E84266 /* EpisodeCollectionViewCell.swift in Sources */,
 				55F4C2171D8DA55B00E23CFB /* AppDelegate.swift in Sources */,
 				554E39921D93D31A00D29DA3 /* EpisodeListCollectionViewController.swift in Sources */,
 				55D57B711D95B56700E84266 /* LetterSectionTableViewController.swift in Sources */,
+				55F6C8341DB3DCC9006E099B /* Episode.swift in Sources */,
 				55CAF0BD1D900F5A0092C65B /* EpisodeDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -362,6 +370,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = OppetArkivSwift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tv.oscar.OppetArkivSwift;
@@ -379,6 +388,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = OppetArkivSwift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tv.oscar.OppetArkivSwift;
