@@ -16,7 +16,7 @@ import HTMLReader
 class ProgramListTableViewController: UITableViewController, LetterSelectionDelegate {
     var programsList : [Program] = []
     
-    let requestUrl = "http://www.oppetarkiv.se/program"
+    let requestUrl = "https://www.oppetarkiv.se/program"
     var filteredProgramsList : [Program] = [] {
         didSet {
             self.tableView.reloadData()

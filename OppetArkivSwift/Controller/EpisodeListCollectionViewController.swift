@@ -14,7 +14,7 @@ private let reuseIdentifier = "EpisodeCell"
 
 class EpisodeListCollectionViewController: UICollectionViewController {
     var requestUrl : String = ""
-    var baseUrl : String  = "http://www.oppetarkiv.se"
+    var baseUrl : String  = "https://www.oppetarkiv.se"
     var episodeList : [Episode] = [] {
         didSet {
             self.collectionView?.reloadData()
@@ -73,18 +73,19 @@ class EpisodeListCollectionViewController: UICollectionViewController {
         
         // Configure the cell
         cell.textLabel.text = episodeList[(indexPath as NSIndexPath).row].title
-        
+        print(episodeList[(indexPath as NSIndexPath).row])
         let url = URL(string: self.episodeList[(indexPath as NSIndexPath).row].imageUrl)
         DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
-            let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
+            if let data = try? Data(contentsOf: url!) { //make sure your image in this url does exist, otherwise unwrap in a if let check
             DispatchQueue.main.async(execute: {
-                cell.imageView?.image = UIImage(data: data!)
+                cell.imageView?.image = UIImage(data: data)
                 cell.imageView.layer.cornerRadius = 10
                 cell.imageView?.clipsToBounds = true
                 cell.imageView.sizeToFit()
                 cell.layoutSubviews()
 
                 });
+            }
         }
         return cell
     }
@@ -130,7 +131,7 @@ class EpisodeListCollectionViewController: UICollectionViewController {
                 for (index, oneEpisode) in episodeHTMLTable.enumerated() {
                     if let detailsUrl = oneEpisode.attributes["href"], let imageUrl = imagesList[index].components(separatedBy: " ").first {
                         let videoId = detailsUrl.components(separatedBy: "/")[2]
-                        let episode = Episode(title: oneEpisode.textContent, detailsUrl: detailsUrl, imageUrl: "http:" + imageUrl, videoId: videoId)
+                        let episode = Episode(title: oneEpisode.textContent, detailsUrl: detailsUrl, imageUrl: imageUrl, videoId: videoId)
                         
                         episodesList.append(episode)
                       

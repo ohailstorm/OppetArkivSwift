@@ -15,7 +15,7 @@ struct Program {
     
     init(title: String, detailsUrl: String) {
         self.title = title
-        self.detailsUrl = "http://www.oppetarkiv.se" + detailsUrl
+        self.detailsUrl = "https://www.oppetarkiv.se" + detailsUrl
     }
     
 }

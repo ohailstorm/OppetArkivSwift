@@ -13,7 +13,7 @@ import HTMLReader
 class EpisodeListTableViewController: UITableViewController {
     
     var requestUrl = ""
-    let baseUrl = "http://www.oppetarkiv.se"
+    let baseUrl = "https://www.oppetarkiv.se"
     var episodeList : [HTMLElement] = []
     var imageList : [String] = []
     
@@ -53,7 +53,7 @@ class EpisodeListTableViewController: UITableViewController {
         cell.textLabel?.text = episodeList[(indexPath as NSIndexPath).row].textContent
         //print(episodeList[indexPath.row].attributes)
         
-        let url = URL(string: "http:" + self.imageList[(indexPath as NSIndexPath).row])
+        let url = URL(string: "https:" + self.imageList[(indexPath as NSIndexPath).row])
         
         DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
             let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check

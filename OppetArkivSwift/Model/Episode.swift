@@ -17,7 +17,7 @@ struct Episode {
     
     init(title: String, detailsUrl: String, imageUrl: String, videoId: String) {
         self.title = title
-        self.detailsUrl = "http://www.oppetarkiv.se" + detailsUrl
+        self.detailsUrl = "https://www.oppetarkiv.se" + detailsUrl
         self.imageUrl = imageUrl
         self.videoId = videoId
     }

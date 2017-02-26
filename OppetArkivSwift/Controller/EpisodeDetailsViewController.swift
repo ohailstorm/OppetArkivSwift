@@ -67,7 +67,7 @@ class EpisodeDetailsViewController: UIViewController {
     }
     
     func getVideoStream(){
-        var requestUrl = "http://api.svt.se/videoplayer-api/video/" + videoId
+        var requestUrl = "https://api.svt.se/videoplayer-api/video/" + videoId
         
         Alamofire.request(requestUrl)
             .responseString { responseString in
