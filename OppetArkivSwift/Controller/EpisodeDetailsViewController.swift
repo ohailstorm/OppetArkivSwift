@@ -54,7 +54,7 @@ class EpisodeDetailsViewController: UIViewController {
                 }
 
                 let doc = HTMLDocument(string: htmlAsString)
-                let tables = doc.nodes(matchingSelector: ".svtoa-anchor-list-link")
+//                let tables = doc.nodes(matchingSelector: ".svtoa-anchor-list-link")
                 let video = doc.nodes(matchingSelector: "[data-video-id]")
                 
                 if let id = video.first?.attributes["data-video-id"] {
@@ -67,7 +67,7 @@ class EpisodeDetailsViewController: UIViewController {
     }
     
     func getVideoStream(){
-        var requestUrl = "https://api.svt.se/videoplayer-api/video/" + videoId
+        let requestUrl = "https://api.svt.se/videoplayer-api/video/" + videoId
         
         Alamofire.request(requestUrl)
             .responseString { responseString in
@@ -84,14 +84,18 @@ class EpisodeDetailsViewController: UIViewController {
                 }
                 print(htmlAsString)
                 if let dataFromString = htmlAsString.data(using: String.Encoding.utf8, allowLossyConversion: false) {
-                    let json = JSON(data: dataFromString)
-                    for item in json["videoReferences"].arrayValue {
-                        if item["format"].stringValue == "hls" {
-                            print(item["url"].stringValue)
-                            self.playVideo(item["url"].stringValue)
-                            break
+                    do {
+                        let json = try JSON(data: dataFromString)
+                        for item in json["videoReferences"].arrayValue {
+                            if item["format"].stringValue == "hls" {
+                                print(item["url"].stringValue)
+                                self.playVideo(item["url"].stringValue)
+                                
+                                break
+                            }
                         }
-                       
+                    } catch {
+                        print(error)
                     }
                 }
         }
@@ -103,14 +107,14 @@ class EpisodeDetailsViewController: UIViewController {
         let playerViewController = AVPlayerViewController()
         
         playerViewController.player = AVPlayer(url: videoURL)
-        playerViewController.isModalInPopover = true
+//        playerViewController.isModalInPopover = true
         
-        self.addChildViewController(playerViewController)
+        self.addChild(playerViewController)
         playerViewController.view.frame = self.view.frame
         self.view.addSubview(playerViewController.view)
         
         playerViewController.player?.play()
         playerViewController.showsPlaybackControls = true
-        playerViewController.didMove(toParentViewController: self)
+        playerViewController.didMove(toParent: self)
     }
 }
