@@ -49,7 +49,7 @@ class LetterSectionTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LetterCell", for: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text =  letterList[(indexPath as NSIndexPath).row] ?? ""
+        cell.textLabel?.text = letterList[(indexPath as NSIndexPath).row]
         return cell
     }
     
@@ -60,7 +60,7 @@ class LetterSectionTableViewController: UITableViewController {
         }
         
         
-            if let selectedLetter = letterList[(indexPath as NSIndexPath).row].lowercased().characters.first {
+            if let selectedLetter = letterList[(indexPath as NSIndexPath).row].lowercased().first {
                 self.delegate?.letterSelected(selectedLetter)
             }
     

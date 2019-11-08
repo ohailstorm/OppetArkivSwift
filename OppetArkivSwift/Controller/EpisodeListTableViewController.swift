@@ -57,10 +57,10 @@ class EpisodeListTableViewController: UITableViewController {
         
         DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
             let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
-            DispatchQueue.main.async(execute: { [unowned self] in
+            DispatchQueue.main.async(execute: {
                 cell.imageView?.image = UIImage(data: data!)
                 cell.layoutSubviews()
-            });
+            })
         }
 
 
@@ -133,12 +133,8 @@ class EpisodeListTableViewController: UITableViewController {
  
     
     func updateProgramsList(_ newList : [HTMLElement]) {
-        self.episodeList.append(contentsOf: newList)
-        for element in newList {
-            //            print(element)
-        }
-        self.tableView.reloadData()
-        
+        episodeList.append(contentsOf: newList)
+        tableView.reloadData()   
     }
     
     func buildOneProgramsList(){

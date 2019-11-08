@@ -120,11 +120,11 @@ class ProgramListTableViewController: UITableViewController, LetterSelectionDele
             filteredProgramsList = programsList
             return
         }
-        print(filterLetter)
-        guard filterLetter != "#".characters.first else {
+        print(filterLetter ?? "")
+        guard filterLetter != "#".first else {
             
             filteredProgramsList = programsList.filter({
-                if let substr = $0.title.characters.first {
+                if let substr = $0.title.first {
                     return Int(String(substr)) != nil
                 }
                 return false
@@ -135,7 +135,7 @@ class ProgramListTableViewController: UITableViewController, LetterSelectionDele
         
         
         filteredProgramsList = programsList.filter({
-            if let programLetter = $0.title.lowercased().characters.first {
+            if let programLetter = $0.title.lowercased().first {
                 return programLetter == filterLetter
             }
             return false
